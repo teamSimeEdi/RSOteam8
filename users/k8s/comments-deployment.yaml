@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: comments-deployment
+  name: users-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: comments
+      app: users
   template:
     metadata:
       labels:
-        app: comments
+        app: users
     spec:
       containers:
-      - image: jmezna/rso-comments:1.0.0-SNAPSHOT-17.1
-        name: comments
+      - image: rso-users:1.0.0-SNAPSHOT
+        name: users
         env:
           - name: KUMULUZEE_DISCOVERY_CLUSTER
             value: gcloud
@@ -45,7 +45,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: comments
+  name: users
 spec:
   type: ClusterIP
   ports:
@@ -53,4 +53,4 @@ spec:
       protocol: TCP
       targetPort: server
   selector:
-    app: comments
+    app: users
